@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<meta charset="utf-8" />
+		<title>Просмотр приложения</title>
+	</head>
+	<body>
+		<div style="width: 30%; padding: 10px;min-width: 300px;">
+			<form>
+				<div class="form-group">
+					<label for="appID">Идентификатор приложения</label>
+					<input disabled name="appID" type="text" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
+					<small id="appIDText" class="form-text text-muted">Уникальный идентификатор приложения в системе</small>
+				</div>
+				<div class="form-group">
+					<label for="appName">Наименование приложения</label>
+					<input disabled name="name" type="text" class="form-control" id="appName" aria-describedby="appNameText" placeholder="Введите наименование" value="{{ appObject.name }}">
+				</div>
+				<div class="form-group">
+					<label for="appDesc">Описание приложения</label>
+					<textarea disabled name="desc" class="form-control" id="appDesc" rows="3" aria-describedby="appDescText" placeholder="Введите описание">{{ appObject.desc }}</textarea>
+				</div>
+				<div class="form-group">
+					<label for="spisok">Список файлов</label>
+					<select disabled name="spisok" id="spisok">
+						{% if appObject.spisok=='off' %}
+							<option selected value="off">
+								Недоступно
+							</option>
+						{% else %}
+							<option value="off">
+								Недоступно
+							</option>
+						{% endif %}
+						{% if appObject.spisok=='zapros' %}
+							<option selected value="zapros">
+								Запрошено
+							</option>
+						{% else %}
+							<option value="zapros">
+								Запрошено
+							</option>
+						{% endif %}
+						{% if appObject.spisok=='on' %}
+							<option selected value="on">
+								Разрешено
+							</option>
+						{% else %}
+							<option value="on">
+								Разрешено
+							</option>
+						{% endif %}
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="read">Чтение файла</label>
+					<select disabled name="read" id="read">
+						{% if appObject.read=='off' %}
+							<option selected value="off">
+								Недоступно
+							</option>
+						{% else %}
+							<option value="off">
+								Недоступно
+							</option>
+						{% endif %}
+						{% if appObject.read=='zapros' %}
+							<option selected value="zapros">
+								Запрошено
+							</option>
+						{% else %}
+							<option value="zapros">
+								Запрошено
+							</option>
+						{% endif %}
+						{% if appObject.read=='on' %}
+							<option selected value="on">
+								Разрешено
+							</option>
+						{% else %}
+							<option value="on">
+								Разрешено
+							</option>
+						{% endif %}
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="write">Запись в файл</label>
+					<select disabled name="write" id="read">
+						{% if appObject.write=='off' %}
+							<option selected value="off">
+								Недоступно
+							</option>
+						{% else %}
+							<option value="off">
+								Недоступно
+							</option>
+						{% endif %}
+						{% if appObject.write=='zapros' %}
+							<option selected value="zapros">
+								Запрошено
+							</option>
+						{% else %}
+							<option value="zapros">
+								Запрошено
+							</option>
+						{% endif %}
+						{% if appObject.write=='on' %}
+							<option selected value="on">
+								Разрешено
+							</option>
+						{% else %}
+							<option value="on">
+								Разрешено
+							</option>
+						{% endif %}
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="delete">Удаление файла</label>
+					<select disabled name="delete" id="read">
+						{% if appObject.delete=='off' %}
+							<option selected value="off">
+								Недоступно
+							</option>
+						{% else %}
+							<option value="off">
+								Недоступно
+							</option>
+						{% endif %}
+						{% if appObject.delete=='zapros' %}
+							<option selected value="zapros">
+								Запрошено
+							</option>
+						{% else %}
+							<option value="zapros">
+								Запрошено
+							</option>
+						{% endif %}
+						{% if appObject.delete=='on' %}
+							<option selected value="on">
+								Разрешено
+							</option>
+						{% else %}
+							<option value="on">
+								Разрешено
+							</option>
+						{% endif %}
+					</select>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
