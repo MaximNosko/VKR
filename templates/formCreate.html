@@ -17,8 +17,8 @@
 		<input type="submit" value="Сохранить" />
     </form>
 	-->
+  <div style="width: 30%; padding: 10px;min-width: 300px;">
 	<form action="createSave" method="POST">
-	<div style="width: 30%; padding: 10px">
   <div class="form-group">
     <label for="appName">Наименование приложения</label>
     <input name="name" type="text" class="form-control" id="appName" aria-describedby="appNameText" placeholder="Введите наименование">
@@ -26,32 +26,36 @@
   </div>
   <div class="form-group">
     <label for="appDesc">Описание приложения</label>
-	<textarea name="desc" class="form-control" id="appDesc" rows="3" aria-describedby="appDescText" placeholder="Введите описание"></textarea>
-	<small id="appDescText" class="form-text text-muted">Администрация принимает решения об одобрении приложения на основании его названия и описания</small>
+    <textarea name="desc" class="form-control" id="appDesc" rows="3" aria-describedby="appDescText" placeholder="Введите описание"></textarea>
+    <small id="appDescText" class="form-text text-muted">Администрация принимает решения об одобрении приложения на основании его названия и описания</small>
   </div>
   <div class="form-group">
 	Разрешения, необходимые приложению:
   </div>
-  
   <div class="form-group form-check">
     <input name="spisok" type="checkbox" class="form-check-input" id="spisok">
     <label class="form-check-label" for="spisok" aria-describedby="spisokText">Список файлов</label>
-	<small id="spisokText" class="form-text text-muted">Получение списка файлов и папок в папке по её абсолютному пути</small>
+	  <small id="spisokText" class="form-text text-muted">Получение списка файлов и папок в папке по её абсолютному пути</small>
   </div>
   <div class="form-group form-check">
     <input name="read" type="checkbox" class="form-check-input" id="read">
     <label class="form-check-label" for="read" aria-describedby="readText">Чтение файла</label>
-	<small id="readText" class="form-text text-muted">Получение содержимого файла по его абсолютному пути</small>
+	  <small id="readText" class="form-text text-muted">Получение содержимого файла по его абсолютному пути</small>
   </div>
   <div class="form-group form-check">
     <input name="write" type="checkbox" class="form-check-input" id="write">
     <label class="form-check-label" for="write" aria-describedby="writeText">Запись в файл</label>
-	<small id="writeText" class="form-text text-muted">Запись содержимого в файл по его абсолютному пути</small>
+	  <small id="writeText" class="form-text text-muted">Запись содержимого в файл по его абсолютному пути</small>
   </div>
   <div class="form-group form-check">
     <input name="delete" type="checkbox" class="form-check-input" id="delete">
     <label class="form-check-label" for="delete" aria-describedby="deleteText">Удаление файла</label>
-	<small id="deleteText" class="form-text text-muted">Удаление файла по его абсолютному пути</small>
+	  <small id="deleteText" class="form-text text-muted">Удаление файла по его абсолютному пути</small>
+  </div>
+  <div class="form-group">
+    <label for="appPassword">Пароль администратора приложения</label>
+    <input name="appPassword" type="password" class="form-control" id="appPassword" aria-describedby="appPasswordText" placeholder="Введите пароль">
+    <small id="appPasswordText" class="form-text text-muted">Минимум 10 символов</small>
   </div>
   <button type="submit" class="btn btn-primary">Добавить приложение</button>
 </form>
