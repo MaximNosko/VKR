@@ -12,6 +12,9 @@
         <div style="width: 30%; padding: 10px;min-width: 300px;">
             <h3>
                 Портал СРП
+                {% if mode=='admin' %}
+                    (для администраторов)
+                {% endif %}
             </h3>
             <h4>
                 Список приложений
@@ -21,20 +24,37 @@
             </div>
             <ul class="list-group">
                 {% for app in apps %}
-                    <a href="getApp?id={{ app._id }}">
-                        <li class="list-group-item">
-                            {% if app.status=='zapros' %}
-                                &#8987;
-                            {% endif %}
-                            {% if app.status=='on' %}
-                                &#9989;
-                            {% endif %}
-                            {% if app.status=='off' %}
-                                &#10060;
-                            {% endif %}
-                            {{ app.name }}
-                        </li>
-                    </a>
+                    {% if mode=='read' %}
+                        <a href="getApp?id={{ app._id }}">
+                            <li class="list-group-item">
+                                {% if app.status=='zapros' %}
+                                    &#8987;
+                                {% endif %}
+                                {% if app.status=='on' %}
+                                    &#9989;
+                                {% endif %}
+                                {% if app.status=='off' %}
+                                    &#10060;
+                                {% endif %}
+                                {{ app.name }}
+                            </li>
+                        </a>
+                    {% else %}
+                        <a href="adminApp?id={{ app._id }}">
+                            <li class="list-group-item">
+                                {% if app.status=='zapros' %}
+                                    &#8987;
+                                {% endif %}
+                                {% if app.status=='on' %}
+                                    &#9989;
+                                {% endif %}
+                                {% if app.status=='off' %}
+                                    &#10060;
+                                {% endif %}
+                                {{ app.name }}
+                            </li>
+                        </a>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>

@@ -11,31 +11,31 @@
 	<body>
 		<div style="width: 30%; padding: 10px;min-width: 300px;">
 			<h3>
-				Портал СРП
+				Портал СРП (для администраторов)
 			  </h3>
 			  <h4>
 				Приложение
 			  </h4>
 			  <div style="padding-bottom: 10px; padding-top: 10px;">
-                <a class="btn btn-primary" href="/" role="button">На главную</a>
+                <a class="btn btn-primary" href="/admin" role="button">На главную</a>
             </div>
-			<form>
+			<form method="POST" action="adminSave">
 				<div class="form-group">
 					<label for="appID">Идентификатор приложения</label>
-					<input disabled name="appID" type="text" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
+					<input readonly name="appID" type="text" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
 					<small id="appIDText" class="form-text text-muted">Уникальный идентификатор приложения в системе</small>
 				</div>
 				<div class="form-group">
 					<label for="name">Наименование приложения</label>
-					<input disabled name="name" type="text" class="form-control" id="appName" aria-describedby="appNameText" placeholder="Введите наименование" value="{{ appObject.name }}">
+					<input name="name" type="text" class="form-control" id="name" placeholder="Введите наименование" value="{{ appObject.name }}">
 				</div>
 				<div class="form-group">
 					<label for="appDesc">Описание приложения</label>
-					<textarea disabled name="desc" class="form-control" id="appDesc" rows="3" aria-describedby="appDescText" placeholder="Введите описание">{{ appObject.desc }}</textarea>
+					<textarea name="desc" class="form-control" id="appDesc" rows="3" placeholder="Введите описание">{{ appObject.desc }}</textarea>
 				</div>
 				<div class="form-group">
 					<label for="spisok">Список файлов</label>
-					<select disabled name="spisok" id="spisok">
+					<select name="spisok" id="spisok">
 						{% if appObject.spisok=='off' %}
 							<option selected value="off">
 								Недоступно
@@ -67,7 +67,7 @@
 				</div>
 				<div class="form-group">
 					<label for="read">Чтение файла</label>
-					<select disabled name="read" id="read">
+					<select name="read" id="read">
 						{% if appObject.read=='off' %}
 							<option selected value="off">
 								Недоступно
@@ -99,7 +99,7 @@
 				</div>
 				<div class="form-group">
 					<label for="write">Запись в файл</label>
-					<select disabled name="write" id="read">
+					<select name="write" id="write">
 						{% if appObject.write=='off' %}
 							<option selected value="off">
 								Недоступно
@@ -131,7 +131,7 @@
 				</div>
 				<div class="form-group">
 					<label for="delete">Удаление файла</label>
-					<select disabled name="delete" id="read">
+					<select name="delete" id="delete">
 						{% if appObject.delete=='off' %}
 							<option selected value="off">
 								Недоступно
@@ -162,9 +162,10 @@
 					</select>
 				</div>
 				<div class="form-group">
-					Для разработчиков
+					<label for="adminPassword">Пароль администратора</label>
+					<input name="adminPassword" type="password" class="form-control" id="adminPassword" placeholder="Введите пароль">
 				  </div>
-				<button type="submit" class="btn btn-primary">Изменить приложение</button>
+				<button type="submit" class="btn btn-primary">Сохранить изменения</button>
 			</form>
 		</div>
 	</body>
