@@ -167,6 +167,17 @@
 				  </div>
 				<button type="submit" class="btn btn-primary">Сохранить изменения</button>
 			</form>
+			<form method="POST" action="adminDelete" style="padding-top: 10px;">
+				<div class="form-group">
+					<b>Удаление приложения</b>
+				</div>
+				<input name="appID" type="hidden" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
+				<div class="form-group">
+					<label for="adminPassword">Пароль администратора</label>
+					<input name="adminPassword" type="password" class="form-control" id="adminPassword" placeholder="Введите пароль">
+				</div>
+				<button type="submit" class="btn btn-danger">Удалить приложение</button>
+			</form>
 		</div>
 	</body>
 </html>
