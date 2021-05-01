@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<meta charset="utf-8" />
+		<title>Приложение</title>
+	</head>
+	<body>
+		<div style="width: 30%; padding: 10px;min-width: 300px;">
+			<h3>
+                Портал СРП
+            </h3>
+            <h4>
+                Управление приложением
+            </h4>
+            <div style="padding-bottom: 10px; padding-top: 10px;">
+                <a class="btn btn-primary" href="/" role="button">На главную</a>
+            </div>
+            <form>
+				<div class="form-group">
+					<label for="appID">Идентификатор приложения</label>
+					<input readonly name="appID" type="text" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
+					<small id="appIDText" class="form-text text-muted">Уникальный идентификатор приложения в системе</small>
+				</div>
+                <div class="form-group">
+					<label for="name">Наименование приложения</label>
+					<input disabled name="name" type="text" class="form-control" id="name" placeholder="Введите наименование" value="{{ appObject.name }}">
+				</div>
+                <div class="form-group">
+                    <a class="btn btn-primary" href="/" role="button">К приложению</a>
+                </div>
+            </form>
+            <form method="POST" action="devNewKey" style="padding-top: 10px;">
+				<div class="form-group">
+					<b>Генерация нового секретного ключа</b>
+				</div>
+				<input name="appID" type="hidden" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
+				<div class="form-group">
+					<label for="devPassword">Пароль разработчика</label>
+					<input name="devPassword" type="password" class="form-control" id="devPassword" placeholder="Введите пароль">
+				</div>
+				<button type="submit" class="btn btn-warning">Сгенерировать новый секретный ключ</button>
+			</form>
+            <form method="POST" action="devNewKey" style="padding-top: 10px;">
+				<div class="form-group">
+					<b>Изменение пароля разработчика</b>
+				</div>
+				<input name="appID" type="hidden" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
+				<div class="form-group">
+					<label for="devPassword">Пароль разработчика</label>
+					<input name="devPassword" type="password" class="form-control" id="devPassword" placeholder="Введите пароль">
+				</div>
+                <div class="form-group">
+					<label for="newPassword">Новый пароль разработчика</label>
+					<input name="newPassword" type="password" class="form-control" id="newPassword" placeholder="Введите новый пароль">
+                    <small id="newPasswordText" class="form-text text-muted">Минимум 10 символов</small>
+				</div>
+				<button type="submit" class="btn btn-warning">Изменить пароль</button>
+			</form>
+            <form method="POST" action="devDelete" style="padding-top: 10px;">
+				<div class="form-group">
+					<b>Удаление приложения</b>
+				</div>
+				<input name="appID" type="hidden" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
+				<div class="form-group">
+					<label for="devPassword">Пароль разработчика</label>
+					<input name="devPassword" type="password" class="form-control" id="devPassword" placeholder="Введите пароль">
+				</div>
+				<button type="submit" class="btn btn-danger">Удалить приложение</button>
+			</form>
+        </div>
+    </body>
+</html>
