@@ -40,7 +40,7 @@
 				<input name="appID" type="hidden" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
 				<div class="form-group">
 					<label for="devPassword">Пароль разработчика</label>
-					<input name="devPassword" type="password" class="form-control" id="devPassword" placeholder="Введите пароль">
+					<input required minlength="10" name="devPassword" type="password" class="form-control" id="devPassword" placeholder="Введите пароль">
 				</div>
 				<button type="submit" class="btn btn-warning">Сгенерировать новый секретный ключ</button>
 			</form>
@@ -51,11 +51,11 @@
 				<input name="appID" type="hidden" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
 				<div class="form-group">
 					<label for="devPassword">Пароль разработчика</label>
-					<input name="devPassword" type="password" class="form-control" id="devPassword" placeholder="Введите пароль">
+					<input required minlength="10" name="devPassword" type="password" class="form-control" id="devPassword" placeholder="Введите пароль">
 				</div>
                 <div class="form-group">
 					<label for="newPassword">Новый пароль разработчика</label>
-					<input name="newPassword" type="password" class="form-control" id="newPassword" placeholder="Введите новый пароль">
+					<input required minlength="10" name="newPassword" type="password" class="form-control" id="newPassword" placeholder="Введите новый пароль">
                     <small id="newPasswordText" class="form-text text-muted">Минимум 10 символов</small>
 				</div>
 				<button type="submit" class="btn btn-warning">Изменить пароль</button>
@@ -67,7 +67,7 @@
 				<input name="appID" type="hidden" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
 				<div class="form-group">
 					<label for="devPassword">Пароль разработчика</label>
-					<input name="devPassword" type="password" class="form-control" id="devPassword" placeholder="Введите пароль">
+					<input required minlength="10" name="devPassword" type="password" class="form-control" id="devPassword" placeholder="Введите пароль">
 				</div>
 				<button type="submit" class="btn btn-danger">Удалить приложение</button>
 			</form>

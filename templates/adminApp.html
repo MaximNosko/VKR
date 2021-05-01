@@ -27,19 +27,19 @@
 				</div>
 				<div class="form-group">
 					<label for="name">Наименование приложения</label>
-					<input name="name" type="text" class="form-control" id="name" placeholder="Введите наименование" value="{{ appObject.name }}">
+					<input required minlength="1" name="name" type="text" class="form-control" id="name" placeholder="Введите наименование" value="{{ appObject.name }}">
 				</div>
 				<div class="form-group">
 					<label for="devName">Наименование разработчика</label>
-					<input name="devName" type="text" class="form-control" id="devName" aria-describedby="devNameText" value="{{ appObject.devName }}">
+					<input required minlength="1" name="devName" type="text" class="form-control" id="devName" aria-describedby="devNameText" value="{{ appObject.devName }}">
 				  </div>
 				  <div class="form-group">
 					<label for="email">E-mail разработчика</label>
-					<input name="email" type="email" class="form-control" id="email" aria-describedby="emailText" value="{{ appObject.email }}">
+					<input required name="email" type="email" class="form-control" id="email" aria-describedby="emailText" value="{{ appObject.email }}">
 				  </div>
 				<div class="form-group">
 					<label for="appDesc">Описание приложения</label>
-					<textarea name="desc" class="form-control" id="appDesc" rows="3" placeholder="Введите описание">{{ appObject.desc }}</textarea>
+					<textarea required minlength="1" name="desc" class="form-control" id="appDesc" rows="3" placeholder="Введите описание">{{ appObject.desc }}</textarea>
 				</div>
 				<div class="form-group">
 					<label for="date">Дата регистрации (UTC)</label>
@@ -175,7 +175,7 @@
 				</div>
 				<div class="form-group">
 					<label for="adminPassword">Пароль администратора</label>
-					<input name="adminPassword" type="password" class="form-control" id="adminPassword" placeholder="Введите пароль">
+					<input required minlength="1" name="adminPassword" type="password" class="form-control" id="adminPassword" placeholder="Введите пароль">
 				  </div>
 				<button type="submit" class="btn btn-primary">Сохранить изменения</button>
 			</form>
@@ -190,7 +190,7 @@
 				</div>
                 <div class="form-group">
 					<label for="newPassword">Новый пароль разработчика</label>
-					<input name="newPassword" type="password" class="form-control" id="newPassword" placeholder="Введите новый пароль">
+					<input required minlength="10" name="newPassword" type="password" class="form-control" id="newPassword" placeholder="Введите новый пароль">
                     <small id="newPasswordText" class="form-text text-muted">Минимум 10 символов</small>
 				</div>
 				<button type="submit" class="btn btn-warning">Изменить пароль</button>
@@ -202,7 +202,7 @@
 				<input name="appID" type="hidden" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
 				<div class="form-group">
 					<label for="adminPassword">Пароль администратора</label>
-					<input name="adminPassword" type="password" class="form-control" id="adminPassword" placeholder="Введите пароль">
+					<input required minlength="1" name="adminPassword" type="password" class="form-control" id="adminPassword" placeholder="Введите пароль">
 				</div>
 				<button type="submit" class="btn btn-danger">Удалить приложение</button>
 			</form>
