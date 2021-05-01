@@ -179,6 +179,22 @@
 				  </div>
 				<button type="submit" class="btn btn-primary">Сохранить изменения</button>
 			</form>
+			<form method="POST" action="adminChangePassword" style="padding-top: 10px;">
+				<div class="form-group">
+					<b>Изменение пароля разработчика</b>
+				</div>
+				<input name="appID" type="hidden" class="form-control" id="appID" aria-describedby="appIDText" value="{{ appObject._id }}">
+				<div class="form-group">
+					<label for="adminPassword">Пароль администратора</label>
+					<input name="adminPassword" type="password" class="form-control" id="adminPassword" placeholder="Введите пароль">
+				</div>
+                <div class="form-group">
+					<label for="newPassword">Новый пароль разработчика</label>
+					<input name="newPassword" type="password" class="form-control" id="newPassword" placeholder="Введите новый пароль">
+                    <small id="newPasswordText" class="form-text text-muted">Минимум 10 символов</small>
+				</div>
+				<button type="submit" class="btn btn-warning">Изменить пароль</button>
+			</form>
 			<form method="POST" action="adminDelete" style="padding-top: 10px;">
 				<div class="form-group">
 					<b>Удаление приложения</b>
