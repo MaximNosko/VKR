@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://geraintluff.github.io/sha256/sha256.min.js"></script>
+		<title>Блокнот</title>
+	</head>
+	<body>
+		<div style="width: 30%; padding: 10px;min-width: 500px;">
+            <h3>
+              Блокнот
+            </h3>
+            <h5>
+                <a href="#">Информация о приложении на Портале СРП</a>
+            </h5>
+            <form id="bForm" onsubmit="formSubmit(this);return false">
+                <div class="form-group">
+                    <label for="path">Путь файла</label>
+                    <input required minlength="1" name="path" type="text" class="form-control" id="path" aria-describedby="devNameText" placeholder="Введите путь файла">
+                  </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" onclick="actionType='open'">Открыть</button>
+                    <button type="submit" class="btn btn-primary" onclick="actionType='save'">Сохранить</button>
+                </div>
+                <div class="form-group">
+                    <textarea name="textField" class="form-control" id="textField" rows="10"></textarea>
+                </div>
+            </form>
+            <script>
+                let actionType=null;
+                let APP_ID="608d57605786bd50bed6cb23";
+                let CLIENT_ADDRESS="http://localhost:49053/"
+                function getReadCommandObject(args,APP_ID)
+                {
+                    return {"type":"read","args":{"path":args.path},"appID":APP_ID};
+                }
+                function getWriteCommandObject(args,APP_ID)
+                {
+                    return {"type":"write","args":{"path":args.path,"bytes":args.bytes},"appID":APP_ID};
+                }
+                function getSortedObject(uObj)
+                {
+                    return Object.keys(uObj).sort().reduce(
+                    (obj, key) => { 
+                        obj[key] = uObj[key]; 
+                        return obj;
+                    }, 
+                    {}
+                    );
+                }
+                function getHash(commandObject)
+                {
+                    console.log("json");
+                    console.log(JSON.stringify(commandObject))
+                    console.log("sha256")
+                    console.log(sha256(JSON.stringify(commandObject)))
+                    return sha256(JSON.stringify(commandObject));
+                }
+                function formSubmit(theForm)
+                {
+                    console.log(theForm);
+                    console.log(theForm.path.value);
+                    console.log(theForm.textField.value);
+                    console.log(actionType);
+                    return false;
+                }
+                let stroka="lol \xd0\xba\xd0\xb5\xd0\xba";
+                console.log(escape(stroka))
+                let txt=decodeURIComponent(escape(stroka));
+                console.log(txt);
+                console.log(unescape(encodeURIComponent(txt)));
+                var utf8 = unescape(encodeURIComponent("lol кек"));
+
+                var arr = [];
+                for (var i = 0; i < utf8.length; i++) {
+                    arr.push(utf8.charCodeAt(i));
+                }
+                decodeURI(escape(String.fromCharCode(108, 111, 108, 32, 208, 186, 208, 181, 208, 186)))
+                function stringFromBytes(bm)
+                {
+                    return decodeURI(escape(String.fromCharCode(...bm)))
+                }
+                function bytesFromString(s)
+                {
+                    let utf8 = unescape(encodeURIComponent(s));
+                    let arr = [];
+                    for (let i = 0; i < utf8.length; i++) {
+                        arr.push(utf8.charCodeAt(i));
+                    }
+                    return arr;
+                }
+                
+                function sendServerPost(hash,command)
+                {
+                    var xhr = new XMLHttpRequest();
+                    var url = "/command";
+                    xhr.open("POST", url, true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            receiveSign(xhr.responseText,command);
+                        }
+                    };
+                    var data = JSON.stringify({"commandHash": hash});
+                    xhr.send(data);
+                }
+                let t = getReadCommandObject({"path":"C:\\Users\\maxno\\Documents\\VKR\\Client SRP\\meow.txt"},APP_ID)
+                t=getSortedObject(t)
+                let hash = getHash(t);
+                //console.log(t)
+                //console.log(hash)
+                sendServerPost(hash,t);
+                function sendClientPost(commandObject)
+                {
+                    var xhr = new XMLHttpRequest();
+                    var url = CLIENT_ADDRESS;
+                    xhr.open("POST", url, true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            //receiveSign(xhr.responseText,command);
+                            alert(xhr.responseText);
+                        }
+                    };
+                    var data = JSON.stringify(commandObject);
+                    xhr.send(data);
+                }
+                function receiveSign(sign,commandObject)
+                {
+                    alert("Получено от сервера "+sign)
+                    commandObject.serverSign=sign
+                    sendClientPost(commandObject);
+                }
+            </script>
+        </div>
+	</body>
+</html>
