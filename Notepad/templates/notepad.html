@@ -6,7 +6,7 @@
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://geraintluff.github.io/sha256/sha256.min.js"></script>
+<!--script src="https://geraintluff.github.io/sha256/sha256.min.js"></script-->
 		<title>Блокнот</title>
 	</head>
 	<body>
@@ -20,7 +20,7 @@
             <form id="bForm" onsubmit="formSubmit(this);return false">
                 <div class="form-group">
                     <label for="path">Путь файла</label>
-                    <input required minlength="1" name="path" type="text" class="form-control" id="path" aria-describedby="devNameText" placeholder="Введите путь файла">
+                    <input required minlength="1" name="path" type="text" class="form-control" id="path" aria-describedby="devNameText" value="C:\Users\maxno\Питон\VKR\Client SRP\meow.txt" placeholder="Введите путь файла">
                   </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary" onclick="actionType='open'">Открыть</button>
@@ -32,8 +32,8 @@
             </form>
             <script>
                 let actionType=null;
-                let APP_ID="608d57605786bd50bed6cb23";
-                let CLIENT_ADDRESS="http://localhost:49053/"
+                let APP_ID="608f1351b59c6f34109189d9";
+                let CLIENT_ADDRESS="http://localhost:49053/";
                 function getReadCommandObject(args,APP_ID)
                 {
                     return {"type":"read","args":{"path":args.path},"appID":APP_ID};
@@ -44,6 +44,13 @@
                 }
                 function getSortedObject(uObj)
                 {
+                    uObj["args"]=Object.keys(uObj["args"]).sort().reduce(
+                    (obj, key) => { 
+                        obj[key] = uObj["args"][key]; 
+                        return obj;
+                    }, 
+                    {}
+                    );
                     return Object.keys(uObj).sort().reduce(
                     (obj, key) => { 
                         obj[key] = uObj[key]; 
@@ -52,23 +59,50 @@
                     {}
                     );
                 }
-                function getHash(commandObject)
+                async function sha256(message) {
+                    // encode as UTF-8
+                    const msgBuffer = new TextEncoder().encode(message);                    
+
+                    // hash the message
+                    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+
+                    // convert ArrayBuffer to Array
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+                    // convert bytes to hex string                  
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    return hashHex;
+                }
+                async function getHash(commandObject)
                 {
                     console.log("json");
                     console.log(JSON.stringify(commandObject))
                     console.log("sha256")
-                    console.log(sha256(JSON.stringify(commandObject)))
-                    return sha256(JSON.stringify(commandObject));
+                    let t=await sha256(JSON.stringify(commandObject));
+                    console.log(t)
+                    return t;
                 }
-                function formSubmit(theForm)
+                async function formSubmit(theForm)
                 {
-                    console.log(theForm);
-                    console.log(theForm.path.value);
-                    console.log(theForm.textField.value);
-                    console.log(actionType);
+                    //console.log(theForm);
+                    //console.log(theForm.path.value);
+                    //console.log(theForm.textField.value);
+                    //console.log(actionType);
+                    if(actionType==="open")
+                    {
+                        console.log(theForm.path.value);
+                        let path=encodeURIComponent(theForm.path.value.replaceAll("\\", "/"));
+                        let co=getReadCommandObject({"path":path},APP_ID);
+                        console.log(co);
+                        co=getSortedObject(co);
+                        console.log(JSON.stringify(co));
+                        let h = await getHash(co);
+                        console.log(h);
+                        sendServerPost(h,co);
+                    }
                     return false;
                 }
-                let stroka="lol \xd0\xba\xd0\xb5\xd0\xba";
+                /*let stroka="lol \xd0\xba\xd0\xb5\xd0\xba";
                 console.log(escape(stroka))
                 let txt=decodeURIComponent(escape(stroka));
                 console.log(txt);
@@ -79,10 +113,10 @@
                 for (var i = 0; i < utf8.length; i++) {
                     arr.push(utf8.charCodeAt(i));
                 }
-                decodeURI(escape(String.fromCharCode(108, 111, 108, 32, 208, 186, 208, 181, 208, 186)))
+                decodeURI(escape(String.fromCharCode(108, 111, 108, 32, 208, 186, 208, 181, 208, 186)))*/
                 function stringFromBytes(bm)
                 {
-                    return decodeURI(escape(String.fromCharCode(...bm)))
+                    return decodeURIComponent(escape(String.fromCharCode(...bm)))
                 }
                 function bytesFromString(s)
                 {
@@ -94,7 +128,7 @@
                     return arr;
                 }
                 
-                function sendServerPost(hash,command)
+                function sendServerPost(hash,commandObject)
                 {
                     var xhr = new XMLHttpRequest();
                     var url = "/command";
@@ -102,20 +136,18 @@
                     xhr.setRequestHeader("Content-Type", "application/json");
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
-                            receiveSign(xhr.responseText,command);
+                            receiveSign(xhr.responseText,commandObject);
                         }
                     };
                     var data = JSON.stringify({"commandHash": hash});
                     xhr.send(data);
                 }
-                let t = getReadCommandObject({"path":"C:\\Users\\maxno\\Documents\\VKR\\Client SRP\\meow.txt"},APP_ID)
-                t=getSortedObject(t)
-                let hash = getHash(t);
-                //console.log(t)
-                //console.log(hash)
-                sendServerPost(hash,t);
+                
                 function sendClientPost(commandObject)
                 {
+                    console.log("Отправляем на Клиент:");
+                    console.log(commandObject);
+                    console.log(JSON.stringify(commandObject));
                     var xhr = new XMLHttpRequest();
                     var url = CLIENT_ADDRESS;
                     xhr.open("POST", url, true);
@@ -123,18 +155,36 @@
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
                             //receiveSign(xhr.responseText,command);
-                            alert(xhr.responseText);
+                            //alert(xhr.responseText);
+                            receiveDataFromClient(xhr.responseText,commandObject)
                         }
                     };
                     var data = JSON.stringify(commandObject);
                     xhr.send(data);
                 }
+                function receiveDataFromClient(d,c)
+                {
+                    console.log("Получен ответ от клиента");
+                    console.log(d);
+                    let responseObject=JSON.parse(d);
+                    let fileBytes=responseObject.result.bytes;
+                    console.log(fileBytes);
+                    document.getElementById("textField").value=stringFromBytes(fileBytes);
+                }
                 function receiveSign(sign,commandObject)
                 {
-                    alert("Получено от сервера "+sign)
+                    console.log("Получена подпись от сервера")
+                    console.log(sign)
                     commandObject.serverSign=sign
+                    console.log(commandObject)
                     sendClientPost(commandObject);
                 }
+                //let t = getReadCommandObject({"path":"C:\\Users\\maxno\\Documents\\VKR\\Client SRP\\meow.txt"},APP_ID)
+                //t=getSortedObject(t)
+                //let hash = getHash(t);
+                //console.log(t)
+                //console.log(hash)
+                //sendServerPost(hash,t);
             </script>
         </div>
 	</body>
