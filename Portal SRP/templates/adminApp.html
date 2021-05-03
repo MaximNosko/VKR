@@ -31,15 +31,15 @@
 				</div>
 				<div class="form-group">
 					<label for="devName">Наименование разработчика</label>
-					<input required minlength="1" name="devName" type="text" class="form-control" id="devName" aria-describedby="devNameText" value="{{ appObject.devName }}">
+					<input required minlength="1" name="devName" type="text" class="form-control" id="devName" value="{{ appObject.devName }}">
 				  </div>
 				  <div class="form-group">
 					<label for="email">E-mail разработчика</label>
-					<input required name="email" type="email" class="form-control" id="email" aria-describedby="emailText" value="{{ appObject.email }}">
+					<input required name="email" type="email" class="form-control" id="email" value="{{ appObject.email }}">
 				  </div>
 				<div class="form-group">
 					<label for="appSite">Ссылка на приложение</label>
-					<input required minlength="1" name="appSite" type="url" class="form-control" id="appSite" aria-describedby="appSiteText" value="{{ appObject.appSite }}">
+					<input required minlength="1" name="appSite" type="url" class="form-control" id="appSite" value="{{ appObject.appSite }}">
 				</div>
 				<div class="form-group">
 					<label for="appDesc">Описание приложения</label>
@@ -50,9 +50,9 @@
 					<input disabled name="date" type="text" class="form-control" id="date" value="{{ appObject.date }}">
 				  </div>
 				<div class="form-group">
-					<label for="spisok">Список файлов</label>
-					<select name="spisok" id="spisok">
-						{% if appObject.spisok=='off' %}
+					<label for="list">Список файлов</label>
+					<select name="list" id="list">
+						{% if appObject.list=='off' %}
 							<option selected value="off">
 								Недоступно
 							</option>
@@ -61,7 +61,7 @@
 								Недоступно
 							</option>
 						{% endif %}
-						{% if appObject.spisok=='zapros' %}
+						{% if appObject.list=='zapros' %}
 							<option selected value="zapros">
 								Запрошено
 							</option>
@@ -70,7 +70,7 @@
 								Запрошено
 							</option>
 						{% endif %}
-						{% if appObject.spisok=='on' %}
+						{% if appObject.list=='on' %}
 							<option selected value="on">
 								Разрешено
 							</option>

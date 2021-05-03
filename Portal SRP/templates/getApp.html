@@ -27,15 +27,15 @@
 				</div>
 				<div class="form-group">
 					<label for="name">Наименование приложения</label>
-					<input disabled name="name" type="text" class="form-control" id="appName" aria-describedby="appNameText" placeholder="Введите наименование" value="{{ appObject.name }}">
+					<input disabled name="name" type="text" class="form-control" id="appName" placeholder="Введите наименование" value="{{ appObject.name }}">
 				</div>
 				<div class="form-group">
 					<label for="devName">Наименование разработчика</label>
-					<input disabled name="devName" type="text" class="form-control" id="devName" aria-describedby="devNameText" value="{{ appObject.devName }}">
+					<input disabled name="devName" type="text" class="form-control" id="devName" value="{{ appObject.devName }}">
 				  </div>
 				  <div class="form-group">
 					<label for="email">E-mail разработчика</label>
-					<input disabled name="email" type="email" class="form-control" id="email" aria-describedby="emailText" value="{{ appObject.email }}">
+					<input disabled name="email" type="email" class="form-control" id="email" value="{{ appObject.email }}">
 				  </div>
 				<div class="form-group">
 					<label for="appSite">Ссылка на приложение</label>
@@ -45,16 +45,16 @@
 				</div>
 				<div class="form-group">
 					<label for="appDesc">Описание приложения</label>
-					<textarea disabled name="desc" class="form-control" id="appDesc" rows="3" aria-describedby="appDescText" placeholder="Введите описание">{{ appObject.desc }}</textarea>
+					<textarea disabled name="desc" class="form-control" id="appDesc" rows="3" placeholder="Введите описание">{{ appObject.desc }}</textarea>
 				</div>
 				<div class="form-group">
 					<label for="date">Дата регистрации (UTC)</label>
 					<input disabled name="date" type="text" class="form-control" id="date" value="{{ appObject.date }}">
 				  </div>
 				<div class="form-group">
-					<label for="spisok">Список файлов</label>
-					<select disabled name="spisok" id="spisok">
-						{% if appObject.spisok=='off' %}
+					<label for="list">Список файлов</label>
+					<select disabled name="list" id="list">
+						{% if appObject.list=='off' %}
 							<option selected value="off">
 								Недоступно
 							</option>
@@ -63,7 +63,7 @@
 								Недоступно
 							</option>
 						{% endif %}
-						{% if appObject.spisok=='zapros' %}
+						{% if appObject.list=='zapros' %}
 							<option selected value="zapros">
 								Запрошено
 							</option>
@@ -72,7 +72,7 @@
 								Запрошено
 							</option>
 						{% endif %}
-						{% if appObject.spisok=='on' %}
+						{% if appObject.list=='on' %}
 							<option selected value="on">
 								Разрешено
 							</option>
