@@ -38,6 +38,12 @@
 					<input disabled name="email" type="email" class="form-control" id="email" aria-describedby="emailText" value="{{ appObject.email }}">
 				  </div>
 				<div class="form-group">
+					<label for="appSite">Ссылка на приложение</label>
+					<div>
+						<a href="{{ appObject.appSite }}" class="link-primary" id="appSite" name="appSite">{{ appObject.appSite }}</a>
+					</div>
+				</div>
+				<div class="form-group">
 					<label for="appDesc">Описание приложения</label>
 					<textarea disabled name="desc" class="form-control" id="appDesc" rows="3" aria-describedby="appDescText" placeholder="Введите описание">{{ appObject.desc }}</textarea>
 				</div>
