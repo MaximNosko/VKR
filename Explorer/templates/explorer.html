@@ -115,12 +115,14 @@
                         ren.innerHTML="&#9999;";
                         ren.class="link-primary";
                         ren.filePath=decodeURIComponent(responseObject.result.folders[i].path);
+                        ren.fileName=decodeURIComponent(responseObject.result.folders[i].title);
                         ren.title="Удалить";
                         ren.onclick=function(e)
                         {
-                            if(confirm("Удалить папку "+decodeURIComponent(responseObject.result.folders[i].title)+"?"))
+                            let newName=prompt("Введите новое наименование",e.target.fileName);
+                            if(newName.length>=1)
                             {
-                                runSRPCommand(APP_ID,"delete",{"path":e.target.filePath},"/command",onWaiting,onDone,onError,onDeleteReturn);
+                                runSRPCommand(APP_ID,"rename",{"path":e.target.filePath,"newName":newName},"/command",onWaiting,onDone,onError,onDeleteReturn);
                             }
                         }
                         ren.href="#";
@@ -168,6 +170,21 @@
                     }
                     for(let i in responseObject.result.files)
                     {
+                        let ren=document.createElement("a");
+                        ren.innerHTML="&#9999;";
+                        ren.class="link-primary";
+                        ren.filePath=decodeURIComponent(responseObject.result.files[i].path);
+                        ren.fileName=decodeURIComponent(responseObject.result.files[i].title);
+                        ren.title="Удалить";
+                        ren.onclick=function(e)
+                        {
+                            let newName=prompt("Введите новое наименование",e.target.fileName);
+                            if(newName.length>=1)
+                            {
+                                runSRPCommand(APP_ID,"rename",{"path":e.target.filePath,"newName":newName},"/command",onWaiting,onDone,onError,onDeleteReturn);
+                            }
+                        }
+                        ren.href="#";
                         let udal=document.createElement("a");
                         udal.innerHTML="&#128465;";
                         udal.class="link-primary";
@@ -197,6 +214,7 @@
                         let t=document.createElement("li");
                         t.className="list-group-item"
                         t.appendChild(udal)
+                        t.appendChild(ren)
                         t.appendChild(put)
                         t.appendChild(s)
                         spisok.appendChild(t);
@@ -223,6 +241,7 @@
                     }
                     return arr;
                 }
+                bForm.onsubmit();
             </script>
         </div>
 	</body>

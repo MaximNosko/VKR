@@ -26,7 +26,8 @@ async function runSRPCommand(appID,type,args,signURL,onWaiting,onDone,onError,on
 	}
 	function getRenameCommandObject(args,APP_ID)
 	{
-		return {"type":"mkdir","args":{"path":args.path,"newName":args.newName},"appID":APP_ID};
+		args.newName=encodeURIComponent(args.newName);
+		return {"type":"rename","args":{"path":args.path,"newName":args.newName},"appID":APP_ID};
 	}
 	if(type==="read")
 	{
