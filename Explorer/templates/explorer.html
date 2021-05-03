@@ -116,7 +116,7 @@
                         ren.class="link-primary";
                         ren.filePath=decodeURIComponent(responseObject.result.folders[i].path);
                         ren.fileName=decodeURIComponent(responseObject.result.folders[i].title);
-                        ren.title="Удалить";
+                        ren.title="Переименовать";
                         ren.onclick=function(e)
                         {
                             let newName=prompt("Введите новое наименование",e.target.fileName);
@@ -175,7 +175,7 @@
                         ren.class="link-primary";
                         ren.filePath=decodeURIComponent(responseObject.result.files[i].path);
                         ren.fileName=decodeURIComponent(responseObject.result.files[i].title);
-                        ren.title="Удалить";
+                        ren.title="Переименовать";
                         ren.onclick=function(e)
                         {
                             let newName=prompt("Введите новое наименование",e.target.fileName);
@@ -241,7 +241,6 @@
                     }
                     return arr;
                 }
-                bForm.onsubmit();
             </script>
         </div>
 	</body>
