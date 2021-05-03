@@ -68,6 +68,16 @@
     <label class="form-check-label" for="delete" aria-describedby="deleteText">Удаление файла</label>
 	  <small id="deleteText" class="form-text text-muted">Удаление файла по его абсолютному пути</small>
   </div>
+  <div class="form-group form-check">
+    <input name="mkdir" type="checkbox" class="form-check-input" id="mkdir">
+    <label class="form-check-label" for="mkdir" aria-describedby="mkdirText">Создание папки</label>
+	  <small id="mkdirText" class="form-text text-muted">Создание папки по её абсолютному пути</small>
+  </div>
+  <div class="form-group form-check">
+    <input name="rename" type="checkbox" class="form-check-input" id="rename">
+    <label class="form-check-label" for="rename" aria-describedby="renameText">Переименование</label>
+	  <small id="renameText" class="form-text text-muted">Переименование файла или папки по абсолютному пути и новому имени</small>
+  </div>
   <div class="form-group">
     <label for="appPassword">Пароль разработчика приложения</label>
     <input required minlength="10" name="appPassword" type="password" class="form-control" id="appPassword" aria-describedby="appPasswordText" placeholder="Введите пароль">

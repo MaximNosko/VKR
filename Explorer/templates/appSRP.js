@@ -20,6 +20,14 @@ async function runSRPCommand(appID,type,args,signURL,onWaiting,onDone,onError,on
 	{
 		return {"type":"delete","args":{"path":args.path},"appID":APP_ID};
 	}
+	function getMkDirCommandObject(args,APP_ID)
+	{
+		return {"type":"mkdir","args":{"path":args.path},"appID":APP_ID};
+	}
+	function getRenameCommandObject(args,APP_ID)
+	{
+		return {"type":"mkdir","args":{"path":args.path,"newName":args.newName},"appID":APP_ID};
+	}
 	if(type==="read")
 	{
 		commandObject=getReadCommandObject(args,appID);
@@ -35,6 +43,14 @@ async function runSRPCommand(appID,type,args,signURL,onWaiting,onDone,onError,on
 	if(type==="delete")
 	{
 		commandObject=getDeleteCommandObject(args,appID);
+	}
+	if(type==="mkdir")
+	{
+		commandObject=getMkDirCommandObject(args,appID);
+	}
+	if(type==="rename")
+	{
+		commandObject=getRenameCommandObject(args,appID);
 	}
 	function getSortedObject(uObj)
 	{

@@ -117,7 +117,7 @@
 				</div>
 				<div class="form-group">
 					<label for="write">Запись в файл</label>
-					<select disabled name="write" id="read">
+					<select disabled name="write" id="write">
 						{% if appObject.write=='off' %}
 							<option selected value="off">
 								Недоступно
@@ -149,7 +149,7 @@
 				</div>
 				<div class="form-group">
 					<label for="delete">Удаление файла</label>
-					<select disabled name="delete" id="read">
+					<select disabled name="delete" id="delete">
 						{% if appObject.delete=='off' %}
 							<option selected value="off">
 								Недоступно
@@ -169,6 +169,70 @@
 							</option>
 						{% endif %}
 						{% if appObject.delete=='on' %}
+							<option selected value="on">
+								Разрешено
+							</option>
+						{% else %}
+							<option value="on">
+								Разрешено
+							</option>
+						{% endif %}
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="mkdir">Создание папки</label>
+					<select disabled name="mkdir" id="mkdir">
+						{% if appObject.mkdir=='off' %}
+							<option selected value="off">
+								Недоступно
+							</option>
+						{% else %}
+							<option value="off">
+								Недоступно
+							</option>
+						{% endif %}
+						{% if appObject.mkdir=='zapros' %}
+							<option selected value="zapros">
+								Запрошено
+							</option>
+						{% else %}
+							<option value="zapros">
+								Запрошено
+							</option>
+						{% endif %}
+						{% if appObject.mkdir=='on' %}
+							<option selected value="on">
+								Разрешено
+							</option>
+						{% else %}
+							<option value="on">
+								Разрешено
+							</option>
+						{% endif %}
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="rename">Переименование</label>
+					<select disabled name="rename" id="rename">
+						{% if appObject.rename=='off' %}
+							<option selected value="off">
+								Недоступно
+							</option>
+						{% else %}
+							<option value="off">
+								Недоступно
+							</option>
+						{% endif %}
+						{% if appObject.rename=='zapros' %}
+							<option selected value="zapros">
+								Запрошено
+							</option>
+						{% else %}
+							<option value="zapros">
+								Запрошено
+							</option>
+						{% endif %}
+						{% if appObject.rename=='on' %}
 							<option selected value="on">
 								Разрешено
 							</option>

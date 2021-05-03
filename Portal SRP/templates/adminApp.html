@@ -178,6 +178,70 @@
 					</select>
 				</div>
 				<div class="form-group">
+					<label for="mkdir">Создание папки</label>
+					<select name="mkdir" id="mkdir">
+						{% if appObject.mkdir=='off' %}
+							<option selected value="off">
+								Недоступно
+							</option>
+						{% else %}
+							<option value="off">
+								Недоступно
+							</option>
+						{% endif %}
+						{% if appObject.mkdir=='zapros' %}
+							<option selected value="zapros">
+								Запрошено
+							</option>
+						{% else %}
+							<option value="zapros">
+								Запрошено
+							</option>
+						{% endif %}
+						{% if appObject.mkdir=='on' %}
+							<option selected value="on">
+								Разрешено
+							</option>
+						{% else %}
+							<option value="on">
+								Разрешено
+							</option>
+						{% endif %}
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="rename">Переименование</label>
+					<select name="rename" id="rename">
+						{% if appObject.rename=='off' %}
+							<option selected value="off">
+								Недоступно
+							</option>
+						{% else %}
+							<option value="off">
+								Недоступно
+							</option>
+						{% endif %}
+						{% if appObject.rename=='zapros' %}
+							<option selected value="zapros">
+								Запрошено
+							</option>
+						{% else %}
+							<option value="zapros">
+								Запрошено
+							</option>
+						{% endif %}
+						{% if appObject.rename=='on' %}
+							<option selected value="on">
+								Разрешено
+							</option>
+						{% else %}
+							<option value="on">
+								Разрешено
+							</option>
+						{% endif %}
+					</select>
+				</div>
+				<div class="form-group">
 					<label for="adminPassword">Пароль администратора</label>
 					<input required minlength="1" name="adminPassword" type="password" class="form-control" id="adminPassword" placeholder="Введите пароль">
 				  </div>
