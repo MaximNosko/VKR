@@ -48,46 +48,46 @@
             </form>
             <script>
                 let actionType=null;
-                let APP_ID="608ff071856012aac7511084";
-                function onWaiting()
+                let APP_ID="608ff071856012aac7511084";//идентификатор приложения
+                function onWaiting()//во время ожидания выполнения команды
                 {
                     waiting.style.display="inline-block";
                     done.style.display="none";
                     error.style.display="none";
                 }
-                function onError()
+                function onError()//при неуспешном выполнении команды
                 {
                     error.style.display="inline-block";
                     done.style.display="none";
                     waiting.style.display="none";
                 }
-                function onDone()
+                function onDone()//при успешном выполнении команды
                 {
                     done.style.display="inline-block";
                     waiting.style.display="none";
                     error.style.display="none";
                 }
-                function newFolder()
+                function newFolder()//создание новой папки
                 {
-                    let path=bForm.path.value.replaceAll("\\", "/");
+                    let path=bForm.path.value.replaceAll("\\", "/");//замена обратных слешей прямыми
                     if(path[path.length-1]!=="/")
                     {
-                        path+="/";
+                        path+="/";//добавление слеша в конец пути
                     }
-                    path=path+prompt("Введите наименование папки");
-                    runSRPCommand(APP_ID,"mkdir",{"path":path},"/command",onWaiting,onDone,onError,onDeleteReturn);
+                    path=path+prompt("Введите наименование папки");//запрос имени папки
+                    runSRPCommand(APP_ID,"mkdir",{"path":path},"/command",onWaiting,onDone,onError,onDeleteReturn);//инициирование команды
                 }
-                function onDeleteReturn(responseObject,commandObject)
+                function onDeleteReturn(responseObject,commandObject)//когда успешно выполнена команда удаления
                 {
-                    bForm.onsubmit();
+                    bForm.onsubmit();//запрос обновлённого списка
                 }
-                function onListReturn(responseObject,commandObject)
+                function onListReturn(responseObject,commandObject)//когда успешно выполнена команда запроса списка файлов и папок
                 {
                     console.log(responseObject);
                     spisok.innerHTML="";
                     bForm.path.value=responseObject.result.path;
                     
-                    if(responseObject.result.path.split("/").length>1)
+                    if(responseObject.result.path.split("/").length>1)//отображение кнопки "вверх", если уместно
                     {
                         let s=document.createElement("a");
                         s.href="#";
@@ -97,7 +97,6 @@
                         s.appendChild(t);
                         s.onclick=function(e)
                         {
-                            //alert(e.target.innerHTML);
                             bForm.path.value=responseObject.result.path.split("/").slice(0, -2).join("/");
                             if(bForm.path.value.length>0)
                             {
@@ -109,9 +108,9 @@
                     }
                     
                     
-                    for(let i in responseObject.result.folders)
+                    for(let i in responseObject.result.folders)//отрисовка списка папок
                     {
-                        let ren=document.createElement("a");
+                        let ren=document.createElement("a");//кнопка переименования
                         ren.innerHTML="&#9999;";
                         ren.class="link-primary";
                         ren.filePath=decodeURIComponent(responseObject.result.folders[i].path);
@@ -127,7 +126,7 @@
                         }
                         ren.href="#";
 
-                        let udal=document.createElement("a");
+                        let udal=document.createElement("a");//кнопка удаления
                         udal.innerHTML="&#128465;";
                         udal.class="link-primary";
                         udal.filePath=decodeURIComponent(responseObject.result.folders[i].path);
@@ -142,7 +141,7 @@
                         udal.href="#";
                         let put=document.createElement("a");
                         put.innerHTML="&#128065;";
-                        put.class="link-primary";
+                        put.class="link-primary";//кнопка отображения пути
                         put.filePath=decodeURIComponent(responseObject.result.folders[i].path);
                         put.title="Показать полный путь";
                         put.onclick=function(e)
@@ -150,7 +149,7 @@
                             alert(e.target.filePath);
                         }
                         put.href="#";
-                        let s=document.createElement("a");
+                        let s=document.createElement("a");//ссылка на просмотр папки
                         s.href="#";
                         s.filePath=decodeURIComponent(responseObject.result.folders[i].path)
                         s.innerHTML="&#128447; "+decodeURIComponent(responseObject.result.folders[i].title);
@@ -161,14 +160,14 @@
                             bForm.onsubmit();
                         }
                         let t=document.createElement("li");
-                        t.className="list-group-item"
+                        t.className="list-group-item"//элемент списка
                         t.appendChild(udal);
                         t.appendChild(ren);
                         t.appendChild(put);
                         t.appendChild(s);
-                        spisok.appendChild(t);
+                        spisok.appendChild(t);//добавление элемента в список
                     }
-                    for(let i in responseObject.result.files)
+                    for(let i in responseObject.result.files)//отрисовка списка файлов
                     {
                         let ren=document.createElement("a");
                         ren.innerHTML="&#9999;";
@@ -220,26 +219,13 @@
                         spisok.appendChild(t);
                     }
                 }
-                async function formSubmit(theForm)
+                async function formSubmit(theForm)//при отправке формы
                 {
                     if(actionType==="show")
                     {
-                        runSRPCommand(APP_ID,"list",{"path":theForm.path.value},"/command",onWaiting,onDone,onError,onListReturn);
+                        runSRPCommand(APP_ID,"list",{"path":theForm.path.value},"/command",onWaiting,onDone,onError,onListReturn);//запуск команды отображения списка файлов и папок
                     }
                     return false;
-                }
-                function stringFromBytes(bm)
-                {
-                    return decodeURIComponent(escape(String.fromCharCode(...bm)))
-                }
-                function bytesFromString(s)
-                {
-                    let utf8 = unescape(encodeURIComponent(s));
-                    let arr = [];
-                    for (let i = 0; i < utf8.length; i++) {
-                        arr.push(utf8.charCodeAt(i));
-                    }
-                    return arr;
                 }
             </script>
         </div>

@@ -45,53 +45,53 @@
                 </div>
             </form>
             <script>
-                let actionType=null;
-                let APP_ID="608f1351b59c6f34109189d9";
-                function onWaiting()
+                let actionType=null;//выбранная команда формы
+                let APP_ID="608f1351b59c6f34109189d9";//идентификатор приложения
+                function onWaiting()//во время ожидания выполнения команды
                 {
                     waiting.style.display="inline-block";
                     done.style.display="none";
                     error.style.display="none";
                 }
-                function onError()
+                function onError()//при неуспешном выполнении команды
                 {
                     error.style.display="inline-block";
                     done.style.display="none";
                     waiting.style.display="none";
                 }
-                function onDone()
+                function onDone()//при успешном выполнении команды
                 {
                     done.style.display="inline-block";
                     waiting.style.display="none";
                     error.style.display="none";
                 }
-                function onReadReturn(responseObject,commandObject)
+                function onReadReturn(responseObject,commandObject)//когда выполнена команда чтения фалйа
                 {
                     let fileBytes=responseObject.result.bytes;
                     console.log(fileBytes);
-                    document.getElementById("textField").value=stringFromBytes(fileBytes);
+                    document.getElementById("textField").value=stringFromBytes(fileBytes);//отображение в текстовой области содержимого файла
                 }
-                function onWriteReturn(responseObject,commandObject)
+                function onWriteReturn(responseObject,commandObject)//когда выполнена команда записи в файл
                 {
 
                 }
-                async function formSubmit(theForm)
+                async function formSubmit(theForm)//при инициировании чтения или записи
                 {
-                    if(actionType==="open")
+                    if(actionType==="open")//если была нажата кнопка чтения файла
                     {
-                        runSRPCommand(APP_ID,"read",{"path":theForm.path.value},"/command",onWaiting,onDone,onError,onReadReturn);
+                        runSRPCommand(APP_ID,"read",{"path":theForm.path.value},"/command",onWaiting,onDone,onError,onReadReturn);//инициирование команды чтения
                     }
                     else
                     {
-                        runSRPCommand(APP_ID,"write",{"path":theForm.path.value,"bytes":bytesFromString(theForm.textField.value)},"/command",onWaiting,onDone,onError,onWriteReturn);
+                        runSRPCommand(APP_ID,"write",{"path":theForm.path.value,"bytes":bytesFromString(theForm.textField.value)},"/command",onWaiting,onDone,onError,onWriteReturn);//инициирования команды записи
                     }
                     return false;
                 }
-                function stringFromBytes(bm)
+                function stringFromBytes(bm)//функция получение строки из списка байтов
                 {
                     return decodeURIComponent(escape(String.fromCharCode(...bm)))
                 }
-                function bytesFromString(s)
+                function bytesFromString(s)//функция получения списка байтов из строки
                 {
                     let utf8 = unescape(encodeURIComponent(s));
                     let arr = [];
