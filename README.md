@@ -137,3 +137,5 @@ https://github.com/MaximNosko/VKR_SRP/blob/main/ServerLib%20SRP/appServerSRP.py
 signSRP(secret_key,commandHash)
 * secret_key - секретный ключ приложения
 * commandHash - хеш команды
+
+Функция возвращает строку - подпись команды
